@@ -162,7 +162,7 @@ export default function Page() {
                 Have a project in mind?
               </h3>
               <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
-                Let's build a website that works for your business. Free consultation,
+                Let&apos;s build a website that works for your business. Free consultation,
                 transparent quotes, no obligations.
               </p>
               <div className="flex flex-wrap justify-center gap-3">
