@@ -13,9 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Prapul Upendrakumar — Security & Web Engineer",
-  description: "SOC-focused engineer building real detection systems.",
-};
+  title: "Prapul Upendrakumar — SOC Analyst & Founder of Aquila",
+  description: "SOC-focused security engineer with hands-on cloud experience. Founder of Aquila — a web studio building modern websites for businesses worldwide.",
+  // ... keep the rest of your metadata (icons, etc.)
+};;
 
 export default function RootLayout({ children }) {
   return (
