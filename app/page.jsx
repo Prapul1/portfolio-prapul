@@ -5,13 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] },
+  },
 };
 
 const stagger = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 const WHATSAPP_NUMBER = "916363606347";
@@ -21,7 +26,15 @@ const EMAIL_QUOTE = "mailto:prapul.2004@gmail.com?subject=Website%20Quote%20Requ
 
 export default function Page() {
   return (
-    <div className="relative min-h-screen bg-black text-white overflow-x-hidden">
+    <div
+      className="relative min-h-screen bg-black text-white overflow-x-hidden"
+      style={{
+        fontFamily:
+          "'Helvetica Neue', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+        fontWeight: 400,
+      }}
+    >
+      {/* AURORA BACKGROUND — unchanged */}
       <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
         <ShaderAurora
           speed={0.6}
@@ -41,173 +54,327 @@ export default function Page() {
         />
       </div>
 
-      {/* NAV — mobile-optimized */}
+      {/* THIN TOP NAVIGATION — 3 anchor points */}
       <motion.nav
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        style={{ position: "fixed", top: "1rem", left: "50%", transform: "translateX(-50%)", zIndex: 50 }}
-        className="pointer-events-auto backdrop-blur-2xl bg-black/40 border border-white/10 rounded-full px-4 sm:px-6 py-2.5 shadow-2xl max-w-[calc(100vw-1rem)]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 50,
+          pointerEvents: "none",
+        }}
+        className="px-6 sm:px-10 py-6 flex items-center justify-between"
       >
-        <ul className="flex gap-4 sm:gap-6 text-[12px] sm:text-[13px] font-medium text-zinc-400 tracking-wide whitespace-nowrap">
-          <li><a href="#about" className="hover:text-white transition-colors">About</a></li>
-          <li><a href="#services" className="hover:text-white transition-colors">Aquila</a></li>
-          <li><a href="#security" className="hover:text-white transition-colors">
-            <span className="sm:hidden">Work</span>
-            <span className="hidden sm:inline">Security Work</span>
-          </a></li>
-          <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
-        </ul>
+        <a
+          href="#"
+          className="pointer-events-auto text-[13px] sm:text-[14px] font-normal text-white hover:opacity-70 transition-opacity"
+          style={{ letterSpacing: "-0.06px" }}
+        >
+          Prapul Upendrakumar
+        </a>
+
+        <div className="hidden md:flex gap-8 text-[14px] font-normal text-white/80 pointer-events-auto" style={{ letterSpacing: "-0.06px" }}>
+          <a href="#about" className="hover:text-white transition-colors">About</a>
+          <a href="#services" className="hover:text-white transition-colors">Aquila</a>
+          <a href="#security" className="hover:text-white transition-colors">Work</a>
+          <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+        </div>
+
+        <a
+          href="#contact"
+          className="pointer-events-auto text-[13px] sm:text-[14px] font-normal text-white hover:opacity-70 transition-opacity"
+          style={{ letterSpacing: "-0.06px" }}
+        >
+          Get in touch ↗
+        </a>
       </motion.nav>
 
+      {/* CONTENT */}
       <main
         style={{ position: "relative", zIndex: 10, pointerEvents: "none" }}
-        className="max-w-5xl mx-auto px-6 py-32 space-y-32"
+        className="max-w-[1400px] mx-auto"
       >
-        <motion.section
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-          className="min-h-[85vh] flex flex-col justify-center"
-        >
-          <motion.p variants={fadeUp} className="text-[10px] sm:text-[11px] tracking-[0.2em] sm:tracking-[0.25em] text-zinc-500 uppercase mb-6 font-mono">
-            SOC Analyst × Web Studio Founder
-          </motion.p>
-          <motion.h1 variants={fadeUp} className="text-5xl sm:text-6xl md:text-8xl font-bold mb-8 leading-[0.95] tracking-tight bg-gradient-to-b from-white via-white to-zinc-500 bg-clip-text text-transparent break-words">
-            Prapul<br />Upendrakumar
-          </motion.h1>
-          <motion.p variants={fadeUp} className="text-lg md:text-xl text-zinc-400 max-w-2xl leading-relaxed font-light">
-            Aspiring SOC analyst with hands-on exposure to cloud environments — and founder of{" "}
-            <span className="text-white font-medium">Aquila</span>, a web studio building
-            modern websites for businesses worldwide.
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-wrap gap-3 mt-10 pointer-events-auto">
-            <a href="#services" className="px-5 py-2.5 bg-white text-black rounded-full text-sm font-medium hover:bg-zinc-200 transition-colors">
-              Hire for a Website
-            </a>
-            <a href="#security" className="px-5 py-2.5 border border-white/20 rounded-full text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white transition-colors">
-              View Security Work
-            </a>
+        {/* HERO — Full-bleed editorial */}
+        <section className="min-h-screen flex flex-col justify-end px-6 sm:px-10 pb-24 pt-40">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+          >
+            {/* Micro caption */}
+            <motion.p
+              variants={fadeUp}
+              className="mb-8 text-white/60"
+              style={{
+                fontFamily: "'Times', serif",
+                fontSize: "13px",
+                lineHeight: 1.2,
+                fontStyle: "italic",
+              }}
+            >
+        
+            </motion.p>
+
+            {/* Editorial display headline */}
+            <motion.h1
+              variants={fadeUp}
+              className="text-white"
+              style={{
+                fontFamily:
+                  "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
+                fontWeight: 400,
+                fontSize: "clamp(52px, 14vw, 162px)",
+                lineHeight: 0.9,
+                letterSpacing: "clamp(-1.2px, -0.024em, -3.89px)",
+                marginBottom: "26px",
+              }}
+            >
+              Prapul Upendrakumar.
+            </motion.h1>
+
+            <motion.h2
+              variants={fadeUp}
+              className="text-white/70 mb-12"
+              style={{
+                fontFamily:
+                  "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
+                fontWeight: 400,
+                fontSize: "clamp(28px, 6vw, 64px)",
+                lineHeight: 1,
+                letterSpacing: "clamp(-0.6px, -0.013em, -0.83px)",
+              }}
+            >
+              Security, meet design.
+            </motion.h2>
+
+            {/* Description */}
+            <motion.p
+              variants={fadeUp}
+              className="text-white/80 max-w-[600px]"
+              style={{
+                fontSize: "clamp(17px, 2vw, 21px)",
+                lineHeight: 1.4,
+                letterSpacing: "-0.1px",
+                fontWeight: 400,
+              }}
+            >
+              SOC analyst with hands-on cloud exposure. Founder of Aquila — a web
+              studio building modern websites for businesses worldwide.
+            </motion.p>
+
+            {/* Scroll indicator */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-20 text-white/60 pointer-events-auto"
+              style={{
+                fontSize: "14px",
+                fontWeight: 400,
+                letterSpacing: "-0.06px",
+              }}
+            >
+              <a href="#about" className="hover:text-white transition-colors">
+                Scroll ↓
+              </a>
+            </motion.div>
           </motion.div>
-        </motion.section>
+        </section>
 
-        <AnimatedSection id="about">
-          <SectionLabel number="01" title="About" />
-          <div className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10">
-            <p className="text-zinc-300 leading-[1.8] text-[16px]">
-              Focused on <span className="text-white">Security Operations (SOC)</span> with
-              hands-on exposure to cloud environments and modern security tools. Founder of{" "}
-              <span className="text-white">Aquila</span>, a web studio building
-              modern websites for businesses worldwide.
-            </p>
-          </div>
-        </AnimatedSection>
+        {/* ABOUT */}
+        <EditorialSection id="about" label="ABOUT" number="(01)" sublabel="Introduction">
+          <motion.h3
+            variants={fadeUp}
+            className="text-white mb-10 max-w-[900px]"
+            style={{
+              fontFamily: "'Helvetica Neue', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(28px, 5vw, 52px)",
+              lineHeight: 1,
+              letterSpacing: "clamp(-0.4px, -0.012em, -0.62px)",
+            }}
+          >
+            Focused on Security Operations, with hands-on exposure to cloud
+            environments and modern security tools.
+          </motion.h3>
+          <motion.p
+            variants={fadeUp}
+            className="text-white/70 max-w-[600px]"
+            style={{
+              fontSize: "clamp(17px, 2vw, 21px)",
+              lineHeight: 1.4,
+              letterSpacing: "-0.1px",
+            }}
+          >
+            Founder of Aquila — a web studio building modern websites for
+            businesses worldwide. Two disciplines, one obsession with craft.
+          </motion.p>
+        </EditorialSection>
 
-        <AnimatedSection id="services">
-          <SectionLabel number="02" title="Aquila" />
+        {/* AQUILA — Services */}
+        <EditorialSection id="services" label="AQUILA" number="(02)" sublabel="Web Studio">
+          <motion.h3
+            variants={fadeUp}
+            className="text-white mb-16 max-w-[1000px]"
+            style={{
+              fontFamily: "'Helvetica Neue', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(28px, 5vw, 52px)",
+              lineHeight: 1,
+              letterSpacing: "clamp(-0.4px, -0.012em, -0.62px)",
+            }}
+          >
+            Websites that make your business look credible online.
+          </motion.h3>
+
+          {/* Services — text-only editorial list */}
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="space-y-8"
+            className="border-t border-white/15"
           >
-            <motion.div variants={fadeUp} className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10">
-              <p className="text-2xl md:text-3xl font-semibold text-white leading-snug tracking-tight mb-4">
-                Websites that make your business look credible online.
-              </p>
-              <p className="text-zinc-400 leading-relaxed text-[15px] max-w-3xl">
-                From single-page landing sites to full business websites,
-                we design and build modern, fast, mobile-ready web experiences
-                for clients worldwide.
-              </p>
-            </motion.div>
-
-            <motion.div variants={stagger} className="grid md:grid-cols-2 gap-3">
-              <ServiceCard
-                title="Business Websites"
-                description="Full multi-page websites for companies, agencies, and service providers — built to convert visitors into customers."
-              />
-              <ServiceCard
-                title="Portfolio Websites"
-                description="Personal-brand and creator portfolios that showcase your work with clean design and smooth interactions."
-              />
-              <ServiceCard
-                title="Landing Pages"
-                description="High-conversion single-page sites for product launches, campaigns, and lead generation."
-              />
-              <ServiceCard
-                title="Website Redesigns"
-                description="Modernize outdated sites with better UX, performance, and SEO — without losing your brand identity."
-              />
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10">
-              <h3 className="text-xs font-mono tracking-[0.2em] uppercase text-zinc-500 mb-6">How We Work</h3>
-              <div className="grid md:grid-cols-4 gap-6">
-                <ProcessStep number="01" title="Discovery" desc="Understand your goals, audience, and brand." />
-                <ProcessStep number="02" title="Design" desc="Craft a clean, on-brand visual direction." />
-                <ProcessStep number="03" title="Development" desc="Build fast, responsive, production-ready code." />
-                <ProcessStep number="04" title="Launch" desc="Deploy, test, and hand off — ready to grow." />
-              </div>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="pointer-events-auto backdrop-blur-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] border border-white/15 rounded-3xl p-8 md:p-10 text-center">
-              <h3 className="text-2xl md:text-3xl font-semibold text-white mb-3 tracking-tight">
-                Have a project in mind?
-              </h3>
-              <p className="text-zinc-400 mb-8 max-w-xl mx-auto">
-                Let&apos;s build a website that works for your business. Free consultation,
-                transparent quotes, no obligations.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3">
-                <a
-                  href={WHATSAPP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3 bg-white text-black rounded-full text-sm font-medium hover:bg-zinc-200 transition-colors"
-                >
-                  Request a Quote via WhatsApp
-                </a>
-                <a
-                  href={EMAIL_QUOTE}
-                  className="px-6 py-3 border border-white/20 rounded-full text-sm font-medium text-zinc-300 hover:bg-white/5 hover:text-white transition-colors"
-                >
-                  Email a Brief
-                </a>
-              </div>
-            </motion.div>
+            <EditorialListItem
+              index="A"
+              title="Business Websites"
+              description="Full multi-page websites for companies, agencies, and service providers — built to convert visitors into customers."
+            />
+            <EditorialListItem
+              index="B"
+              title="Portfolio Websites"
+              description="Personal-brand and creator portfolios that showcase your work with clean design and smooth interactions."
+            />
+            <EditorialListItem
+              index="C"
+              title="Landing Pages"
+              description="High-conversion single-page sites for product launches, campaigns, and lead generation."
+            />
+            <EditorialListItem
+              index="D"
+              title="Website Redesigns"
+              description="Modernize outdated sites with better UX, performance, and SEO — without losing your brand identity."
+            />
           </motion.div>
-        </AnimatedSection>
 
-        <AnimatedSection id="security">
-          <SectionLabel number="03" title="Security Engineering" />
+          {/* Process — inline editorial */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="mt-24 pt-12 border-t border-white/15"
+          >
+            <p className="text-white/50 text-[13px] uppercase mb-10" style={{ letterSpacing: "0.15em" }}>
+              How we work
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <ProcessLine number="01" title="Discovery" />
+              <ProcessLine number="02" title="Design" />
+              <ProcessLine number="03" title="Development" />
+              <ProcessLine number="04" title="Launch" />
+            </div>
+          </motion.div>
+
+          {/* CTA — editorial declarative */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            className="mt-32 pt-16 border-t border-white/15"
+          >
+            <h4
+              className="text-white mb-8 max-w-[800px]"
+              style={{
+                fontFamily: "'Helvetica Neue', sans-serif",
+                fontWeight: 400,
+                fontSize: "clamp(28px, 5vw, 52px)",
+                lineHeight: 1,
+                letterSpacing: "clamp(-0.4px, -0.012em, -0.62px)",
+              }}
+            >
+              Have a project in mind?
+            </h4>
+            <p
+              className="text-white/70 mb-10 max-w-[560px]"
+              style={{
+                fontSize: "clamp(17px, 2vw, 21px)",
+                lineHeight: 1.4,
+                letterSpacing: "-0.1px",
+              }}
+            >
+              Free consultation, transparent quotes, no obligations.
+            </p>
+            <div className="flex flex-wrap gap-8 pointer-events-auto">
+              <a
+                href={WHATSAPP_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white text-[16px] sm:text-[19px] hover:opacity-70 transition-opacity border-b border-white pb-1"
+                style={{ letterSpacing: "-0.08px" }}
+              >
+                WhatsApp ↗
+              </a>
+              <a
+                href={EMAIL_QUOTE}
+                className="text-white text-[16px] sm:text-[19px] hover:opacity-70 transition-opacity border-b border-white pb-1"
+                style={{ letterSpacing: "-0.08px" }}
+              >
+                Email ↗
+              </a>
+            </div>
+          </motion.div>
+        </EditorialSection>
+
+        {/* SECURITY WORK */}
+        <EditorialSection id="security" label="EXPLORE" number="(04)" sublabel="Security Work">
+          <motion.h3
+            variants={fadeUp}
+            className="text-white mb-16 max-w-[900px]"
+            style={{
+              fontFamily: "'Helvetica Neue', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(28px, 5vw, 52px)",
+              lineHeight: 1,
+              letterSpacing: "clamp(-0.4px, -0.012em, -0.62px)",
+            }}
+          >
+            Selected work in detection engineering.
+          </motion.h3>
+
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            className="space-y-3"
+            className="border-t border-white/15"
           >
-            <ProjectCard
+            <ProjectRow
+              index="01"
               title="AWS Multi-Role Assumption Detection Pipeline"
               link="https://github.com/Prapul1/aws-detection-pipeline"
               description="Real-time serverless detection pipeline (CloudTrail → EventBridge → Lambda → DynamoDB → SNS) that alerts when a user assumes 3+ distinct IAM roles within a 15-minute window, with optional auto-containment. Mapped to MITRE ATT&CK T1078.004 and T1548."
               tags={["AWS", "Lambda", "MITRE ATT&CK", "Serverless"]}
             />
-            <ProjectCard
+            <ProjectRow
+              index="02"
               title="AWS CloudTrail + Athena + Sigma Detection Lab"
               link="https://github.com/Prapul1/aws-cloudtrail-sigma-lab"
               description="Cloud-native SIEM pipeline (S3 → Athena/Trino) over ~2,900 simulated CloudTrail events. Identified multi-role assumption and EC2 abuse patterns; authored two Sigma rules mapped to MITRE ATT&CK Cloud Matrix."
               tags={["AWS", "Athena", "Sigma", "SIEM"]}
             />
-            <ProjectCard
+            <ProjectRow
+              index="03"
               title="Real-Time ML-Based Network Intrusion Detection"
               link="https://github.com/Prapul1/intrusion_detection_system"
               description="End-to-end IDS using Scapy and Scikit-learn to classify live traffic as benign or malicious (DoS, port scans, brute-force), deployed via a Flask + SocketIO real-time alerting dashboard."
               tags={["Python", "ML", "Flask", "Scapy"]}
             />
-            <ProjectCard
+            <ProjectRow
+              index="04"
               title="KQL Threat Investigation — A Scandal in Valdoria"
               link="https://github.com/Prapul1/kc7-valdoria-investigation"
               description="Used KQL across Employees, Email, Authentication, and Process events to trace phishing compromises, PowerShell persistence, SSH C2 tunneling, and document exfiltration. Reconstructed full timeline mapped to MITRE ATT&CK (T1566, T1204, T1053.005, T1572, T1567)."
@@ -215,143 +382,206 @@ export default function Page() {
             />
           </motion.div>
 
+          {/* Skills */}
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="mt-24 pt-12 border-t border-white/15"
+          >
+            <p className="text-white/50 text-[13px] uppercase mb-10" style={{ letterSpacing: "0.15em" }}>
+              Toolkit
+            </p>
+            <div className="space-y-10 max-w-[1000px]">
+              <SkillLine title="Security & Detection" items="IDS/IPS · NIST IR · Cyber Kill Chain · MITRE ATT&CK · Threat Hunting" />
+              <SkillLine title="Cloud Security" items="AWS · CloudTrail · Athena · EventBridge · Lambda · IAM · Sigma" />
+              <SkillLine title="SIEM & Query" items="Splunk · ELK · Wazuh · KQL · Kusto · Wireshark · Scapy" />
+              <SkillLine title="Programming" items="Python · Scikit-learn · Flask · SQL · Trino · Git" />
+            </div>
+          </motion.div>
+        </EditorialSection>
+
+        {/* CONTACT */}
+        <EditorialSection id="contact" label="CONTACT" number="(05)" sublabel="Get in Touch">
+          <motion.h3
+            variants={fadeUp}
+            className="text-white mb-16 max-w-[900px]"
+            style={{
+              fontFamily: "'Helvetica Neue', sans-serif",
+              fontWeight: 400,
+              fontSize: "clamp(28px, 5vw, 52px)",
+              lineHeight: 1,
+              letterSpacing: "clamp(-0.4px, -0.012em, -0.62px)",
+            }}
+          >
+            For projects, freelance work, or SOC roles.
+          </motion.h3>
+
           <motion.div
             variants={stagger}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="grid md:grid-cols-2 gap-3 mt-8"
+            className="grid sm:grid-cols-2 gap-8 sm:gap-12 pointer-events-auto max-w-[900px]"
           >
-            <SkillCard title="Security & Detection" items="IDS/IPS · NIST IR · Cyber Kill Chain · MITRE ATT&CK · Threat Hunting" />
-            <SkillCard title="Cloud Security" items="AWS · CloudTrail · Athena · EventBridge · Lambda · IAM · Sigma" />
-            <SkillCard title="SIEM & Query" items="Splunk · ELK · Wazuh · KQL · Kusto · Wireshark · Scapy" />
-            <SkillCard title="Programming" items="Python · Scikit-learn · Flask · SQL · Trino · Git" />
+            <ContactLine label="WhatsApp" value="Chat directly" href={WHATSAPP_LINK} />
+            <ContactLine label="Email" value="prapul.2004@gmail.com" href="mailto:prapul.2004@gmail.com" />
+            <ContactLine label="LinkedIn" value="linkedin.com/in/prapul123" href="https://linkedin.com/in/prapul123" />
+            <ContactLine label="GitHub" value="github.com/Prapul1" href="https://github.com/Prapul1" />
           </motion.div>
-        </AnimatedSection>
+        </EditorialSection>
 
-        <AnimatedSection id="contact" className="pb-16">
-          <SectionLabel number="04" title="Get in Touch" />
-          <div className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-3xl p-8 md:p-10">
-            <p className="text-zinc-400 mb-8 text-[15px] leading-relaxed">
-              For website projects, freelance work, or SOC and detection engineering roles —
-              reach out through any channel below.
-            </p>
-            <div className="grid sm:grid-cols-2 gap-3">
-              <ContactLink label="WhatsApp" value="Chat directly" href={WHATSAPP_LINK} />
-              <ContactLink label="Email" value="prapul.2004@gmail.com" href="mailto:prapul.2004@gmail.com" />
-              <ContactLink label="LinkedIn" value="linkedin.com/in/prapul123" href="https://linkedin.com/in/prapul123" />
-              <ContactLink label="GitHub" value="github.com/Prapul1" href="https://github.com/Prapul1" />
-            </div>
-          </div>
-        </AnimatedSection>
-
+        {/* FOOTER */}
         <motion.footer
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="pointer-events-auto text-center text-zinc-600 text-xs pt-12 pb-6 border-t border-white/5 font-mono tracking-wider"
+          className="pointer-events-auto px-6 sm:px-10 py-16 border-t border-white/10 mt-20"
         >
-          © {new Date().getFullYear()} · PRAPUL UPENDRAKUMAR · AQUILA
+          <div className="flex flex-wrap items-baseline justify-between gap-6">
+            <p
+              className="text-white/50 text-[13px]"
+              style={{ letterSpacing: "-0.06px" }}
+            >
+              © {new Date().getFullYear()} Prapul Upendrakumar · Aquila
+            </p>
+            <p
+              className="text-white/50 text-[13px]"
+              style={{ letterSpacing: "-0.06px" }}
+            >
+              Bengaluru, India
+            </p>
+          </div>
         </motion.footer>
       </main>
     </div>
   );
 }
 
-function AnimatedSection({ id, children, className = "" }) {
+/* ---------- EDITORIAL COMPONENTS ---------- */
+
+function EditorialSection({ id, label, number, sublabel, children }) {
   return (
     <motion.section
       id={id}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.1 }}
       variants={fadeUp}
-      className={`scroll-mt-24 ${className}`}
+      className="px-6 sm:px-10 py-32 sm:py-48 scroll-mt-24"
     >
+      {/* Stacked section label */}
+      <div className="mb-20 sm:mb-24">
+        <p
+          className="text-white text-[14px] sm:text-[16px]"
+          style={{ letterSpacing: "-0.06px", lineHeight: 1.6 }}
+        >
+          {label}
+        </p>
+        <p
+          className="text-white/50 text-[14px] sm:text-[16px]"
+          style={{ letterSpacing: "-0.06px", lineHeight: 1.6 }}
+        >
+          {number}
+        </p>
+        <p
+          className="text-white/50 text-[14px] sm:text-[16px]"
+          style={{ letterSpacing: "-0.06px", lineHeight: 1.6 }}
+        >
+          {sublabel}
+        </p>
+      </div>
       {children}
     </motion.section>
   );
 }
 
-function SectionLabel({ number, title }) {
-  return (
-    <div className="flex items-baseline gap-4 mb-8">
-      <span className="text-xs font-mono text-zinc-600 tracking-widest">{number}</span>
-      <div className="h-px flex-1 bg-white/10" />
-      <h2 className="text-sm font-medium text-zinc-300 tracking-[0.2em] uppercase">{title}</h2>
-    </div>
-  );
-}
-
-function ServiceCard({ title, description }) {
+function EditorialListItem({ index, title, description }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-white/20 transition-all duration-300"
+      className="py-10 border-b border-white/15 grid grid-cols-12 gap-6 hover:bg-white/[0.02] transition-colors"
     >
-      <h3 className="text-base font-semibold mb-2 text-white tracking-tight">{title}</h3>
-      <p className="text-[13px] text-zinc-400 leading-relaxed">{description}</p>
+      <div className="col-span-1">
+        <span
+          className="text-white/50 text-[13px] sm:text-[14px]"
+          style={{ letterSpacing: "-0.06px" }}
+        >
+          {index}
+        </span>
+      </div>
+      <div className="col-span-11 sm:col-span-4">
+        <h4
+          className="text-white"
+          style={{
+            fontSize: "clamp(19px, 2.5vw, 28px)",
+            lineHeight: 1.1,
+            letterSpacing: "-0.3px",
+            fontWeight: 400,
+          }}
+        >
+          {title}
+        </h4>
+      </div>
+      <div className="col-span-12 sm:col-span-7">
+        <p
+          className="text-white/70"
+          style={{
+            fontSize: "clamp(15px, 1.5vw, 17px)",
+            lineHeight: 1.5,
+            letterSpacing: "-0.06px",
+          }}
+        >
+          {description}
+        </p>
+      </div>
     </motion.div>
   );
 }
 
-function ProcessStep({ number, title, desc }) {
-  return (
-    <div>
-      <div className="text-xs font-mono text-zinc-600 tracking-widest mb-2">{number}</div>
-      <div className="text-sm font-semibold text-white mb-1">{title}</div>
-      <div className="text-xs text-zinc-500 leading-relaxed">{desc}</div>
-    </div>
-  );
-}
-
-function SkillCard({ title, items }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-2xl p-6 hover:bg-white/[0.06] hover:border-white/20 transition-all duration-300"
-    >
-      <h3 className="text-[13px] font-semibold mb-3 text-white tracking-wide uppercase">{title}</h3>
-      <p className="text-[13px] text-zinc-400 leading-relaxed">{items}</p>
-    </motion.div>
-  );
-}
-
-function ProjectCard({ title, link, description, tags }) {
+function ProjectRow({ index, title, link, description, tags }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <motion.div
       variants={fadeUp}
-      className="pointer-events-auto backdrop-blur-2xl bg-white/[0.03] border border-white/10 rounded-2xl overflow-hidden hover:border-white/20 transition-colors duration-300"
+      className="border-b border-white/15 pointer-events-auto"
     >
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full text-left p-6 hover:bg-white/[0.03] transition-colors duration-300 group cursor-pointer"
-        aria-expanded={isOpen}
+        className="w-full text-left py-10 grid grid-cols-12 gap-6 hover:bg-white/[0.02] transition-colors cursor-pointer group"
       >
-        <div className="flex items-start justify-between gap-4 mb-3">
-          <h3 className="text-lg font-semibold text-white tracking-tight pr-4">
+        <div className="col-span-1">
+          <span
+            className="text-white/50 text-[13px] sm:text-[14px]"
+            style={{ letterSpacing: "-0.06px" }}
+          >
+            {index}
+          </span>
+        </div>
+        <div className="col-span-10 sm:col-span-8">
+          <h4
+            className="text-white group-hover:text-white/80 transition-colors"
+            style={{
+              fontSize: "clamp(19px, 2.5vw, 28px)",
+              lineHeight: 1.1,
+              letterSpacing: "-0.3px",
+              fontWeight: 400,
+            }}
+          >
             {title}
-          </h3>
+          </h4>
+        </div>
+        <div className="col-span-1 sm:col-span-3 flex justify-end items-start">
           <motion.span
             animate={{ rotate: isOpen ? 45 : 0 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="text-zinc-500 group-hover:text-white transition-colors text-xl leading-none shrink-0 mt-0.5"
+            className="text-white/50 group-hover:text-white text-2xl leading-none"
           >
             +
           </motion.span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-[11px] px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-zinc-400 font-mono tracking-wide"
-            >
-              {tag}
-            </span>
-          ))}
         </div>
       </button>
 
@@ -362,22 +592,43 @@ function ProjectCard({ title, link, description, tags }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: "easeInOut" }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <div className="px-6 pb-6 pt-2 border-t border-white/5">
-              <p className="text-zinc-400 text-[14px] leading-relaxed mb-4 mt-4">
-                {description}
-              </p>
-              <a
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm text-white hover:text-zinc-300 transition-colors group/link"
-              >
-                View on GitHub
-                <span className="group-hover/link:translate-x-1 transition-transform">↗</span>
-              </a>
+            <div className="pb-10 grid grid-cols-12 gap-6">
+              <div className="col-span-1" />
+              <div className="col-span-12 sm:col-span-8">
+                <p
+                  className="text-white/70 mb-6"
+                  style={{
+                    fontSize: "clamp(15px, 1.5vw, 17px)",
+                    lineHeight: 1.5,
+                    letterSpacing: "-0.06px",
+                  }}
+                >
+                  {description}
+                </p>
+                <div className="flex flex-wrap gap-x-4 gap-y-2 mb-6">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-white/50 text-[13px]"
+                      style={{ letterSpacing: "-0.06px" }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+                <a
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white text-[16px] hover:opacity-70 transition-opacity border-b border-white pb-1 inline-block"
+                  style={{ letterSpacing: "-0.06px" }}
+                >
+                  View on GitHub ↗
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
@@ -386,16 +637,82 @@ function ProjectCard({ title, link, description, tags }) {
   );
 }
 
-function ContactLink({ label, value, href }) {
+function ProcessLine({ number, title }) {
   return (
-    <a
+    <div>
+      <p
+        className="text-white/50 text-[13px] mb-2"
+        style={{ letterSpacing: "-0.06px" }}
+      >
+        {number}
+      </p>
+      <p
+        className="text-white text-[19px] sm:text-[21px]"
+        style={{ letterSpacing: "-0.1px", fontWeight: 400 }}
+      >
+        {title}
+      </p>
+    </div>
+  );
+}
+
+function SkillLine({ title, items }) {
+  return (
+    <div className="grid grid-cols-12 gap-6 pb-6 border-b border-white/10">
+      <div className="col-span-12 sm:col-span-3">
+        <h4
+          className="text-white"
+          style={{
+            fontSize: "clamp(17px, 2vw, 21px)",
+            letterSpacing: "-0.1px",
+            fontWeight: 400,
+          }}
+        >
+          {title}
+        </h4>
+      </div>
+      <div className="col-span-12 sm:col-span-9">
+        <p
+          className="text-white/60"
+          style={{
+            fontSize: "clamp(15px, 1.5vw, 17px)",
+            lineHeight: 1.5,
+            letterSpacing: "-0.06px",
+          }}
+        >
+          {items}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ContactLine({ label, value, href }) {
+  return (
+    <motion.a
+      variants={fadeUp}
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="pointer-events-auto flex flex-col p-5 rounded-xl bg-white/[0.03] border border-white/10 hover:bg-white/[0.06] hover:border-white/20 transition-all duration-300 group"
+      className="group block py-6 border-b border-white/15 hover:border-white/40 transition-colors"
     >
-      <span className="text-[10px] text-zinc-500 uppercase tracking-[0.2em] mb-2 font-mono">{label}</span>
-      <span className="text-white text-sm group-hover:text-zinc-100 truncate">{value}</span>
-    </a>
+      <p
+        className="text-white/50 text-[13px] mb-2 uppercase"
+        style={{ letterSpacing: "0.15em" }}
+      >
+        {label}
+      </p>
+      <p
+        className="text-white group-hover:opacity-70 transition-opacity flex items-center gap-2"
+        style={{
+          fontSize: "clamp(19px, 2.5vw, 28px)",
+          letterSpacing: "-0.3px",
+          fontWeight: 400,
+        }}
+      >
+        {value}
+        <span className="text-white/40 group-hover:translate-x-1 transition-transform">↗</span>
+      </p>
+    </motion.a>
   );
 }
