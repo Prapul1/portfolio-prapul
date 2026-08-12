@@ -1,6 +1,7 @@
 "use client";
 
 import ShaderAurora from "@/components/ShaderAurora";
+import FlickerPortrait from "@/components/FlickerPortrait";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 
@@ -111,86 +112,120 @@ export default function Page() {
         style={{ position: "relative", zIndex: 10, pointerEvents: "none" }}
         className="max-w-[1400px] mx-auto"
       >
-        {/* HERO */}
-        <section className="min-h-screen flex flex-col justify-end px-6 sm:px-10 pb-24 pt-40">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={stagger}
+        {/* HERO — Full-bleed portrait background */}
+        <section className="min-h-screen relative overflow-hidden">
+          
+          {/* Big background portrait — right-anchored, full height */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{ zIndex: 5 }}
           >
-            <motion.p
-              variants={fadeUp}
-              className="mb-8 text-white/60"
+            <div
+              className="absolute h-full"
               style={{
-                fontFamily: "'Times', serif",
-                fontSize: "13px",
-                lineHeight: 1.2,
-                fontStyle: "italic",
+                right: "0",
+                top: "0",
+                width: "min(60vw, 900px)",
+                height: "100vh",
               }}
             >
-              Bengaluru — 2026
-            </motion.p>
+              <FlickerPortrait
+                src="/prapulimage.png"
+                alt="Prapul Upendrakumar"
+                priority
+              />
+            </div>
 
-            <motion.h1
-              variants={fadeUp}
-              className="text-white"
+            {/* Subtle gradient to help text readability on left */}
+            <div
+              className="absolute inset-0"
               style={{
-                fontFamily:
-                  "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(52px, 14vw, 162px)",
-                lineHeight: 0.9,
-                letterSpacing: "clamp(-1.2px, -0.024em, -3.89px)",
-                marginBottom: "26px",
+                background:
+                  "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.2) 70%, transparent 100%)",
               }}
-            >
-              Prapul Upendrakumar.
-            </motion.h1>
+            />
+          </div>
 
-            <motion.h2
-              variants={fadeUp}
-              className="text-white/70 mb-12"
-              style={{
-                fontFamily:
-                  "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
-                fontWeight: 400,
-                fontSize: "clamp(28px, 6vw, 64px)",
-                lineHeight: 1,
-                letterSpacing: "clamp(-0.6px, -0.013em, -0.83px)",
-              }}
-            >
-              Turning noise into signals.
-            </motion.h2>
-
-            <motion.p
-              variants={fadeUp}
-              className="text-white/80 max-w-[620px]"
-              style={{
-                fontSize: "clamp(17px, 2vw, 21px)",
-                lineHeight: 1.4,
-                letterSpacing: "-0.1px",
-                fontWeight: 400,
-              }}
-            >
-              SOC analyst focused on detection engineering, threat hunting,
-              and cloud security — with hands-on exposure to AI-assisted
-              log analysis and SIEM investigations.
-            </motion.p>
-
+          {/* Hero content — floats on top */}
+          <div className="relative min-h-screen flex flex-col justify-end px-6 sm:px-10 pb-24 pt-40" style={{ zIndex: 10 }}>
             <motion.div
-              variants={fadeUp}
-              className="mt-20 text-white/60 pointer-events-auto"
-              style={{
-                fontSize: "14px",
-                fontWeight: 400,
-                letterSpacing: "-0.06px",
-              }}
+              initial="hidden"
+              animate="visible"
+              variants={stagger}
+              className="max-w-[720px]"
             >
-              <a href="#about" className="hover:text-white transition-colors">
-                Scroll ↓
-              </a>
+              <motion.p
+                variants={fadeUp}
+                className="mb-8 text-white/60"
+                style={{
+                  fontFamily: "'Times', serif",
+                  fontSize: "13px",
+                  lineHeight: 1.2,
+                  fontStyle: "italic",
+                }}
+              >
+                Bengaluru — 2026
+              </motion.p>
+
+              <motion.h1
+                variants={fadeUp}
+                className="text-white"
+                style={{
+                  fontFamily: "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(52px, 12vw, 140px)",
+                  lineHeight: 0.9,
+                  letterSpacing: "clamp(-1.2px, -0.024em, -3.5px)",
+                  marginBottom: "26px",
+                }}
+              >
+                Prapul Upendrakumar.
+              </motion.h1>
+
+              <motion.h2
+                variants={fadeUp}
+                className="text-white/80 mb-12"
+                style={{
+                  fontFamily: "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
+                  fontWeight: 400,
+                  fontSize: "clamp(28px, 5vw, 56px)",
+                  lineHeight: 1,
+                  letterSpacing: "clamp(-0.6px, -0.013em, -0.75px)",
+                }}
+              >
+                Turning noise into signals.
+              </motion.h2>
+
+              <motion.p
+                variants={fadeUp}
+                className="text-white/80 max-w-[560px]"
+                style={{
+                  fontSize: "clamp(17px, 2vw, 21px)",
+                  lineHeight: 1.4,
+                  letterSpacing: "-0.1px",
+                  fontWeight: 400,
+                }}
+              >
+                SOC analyst focused on detection engineering, threat hunting,
+                and cloud security — with hands-on exposure to AI-assisted
+                log analysis and SIEM investigations.
+              </motion.p>
+
+              <motion.div
+                variants={fadeUp}
+                className="mt-20 text-white/60 pointer-events-auto"
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 400,
+                  letterSpacing: "-0.06px",
+                }}
+              >
+                <a href="#about" className="hover:text-white transition-colors">
+                  Scroll ↓
+                </a>
+              </motion.div>
             </motion.div>
-          </motion.div>
+          </div>
         </section>
 
         {/* ABOUT */}
