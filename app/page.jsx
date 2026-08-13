@@ -1,9 +1,9 @@
 "use client";
 
-import ShaderAurora from "@/components/ShaderAurora";
-import FlickerPortrait from "@/components/FlickerPortrait";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
+import ShaderAurora from "@/components/ShaderAurora";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40, filter: "blur(6px)" },
@@ -77,8 +77,11 @@ export default function Page() {
           background: scrolled ? "rgba(0, 0, 0, 0.55)" : "transparent",
           backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
-          transition: "background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease",
+          borderBottom: scrolled
+            ? "1px solid rgba(255,255,255,0.06)"
+            : "1px solid transparent",
+          transition:
+            "background 300ms ease, border-color 300ms ease, backdrop-filter 300ms ease",
         }}
         className="px-6 sm:px-10 py-4 sm:py-5 flex items-center justify-between"
       >
@@ -90,12 +93,25 @@ export default function Page() {
           Prapul Upendrakumar
         </a>
 
-        <div className="hidden md:flex gap-8 text-[14px] font-normal text-white/80 pointer-events-auto" style={{ letterSpacing: "-0.06px" }}>
-          <a href="#about" className="hover:text-white transition-colors">About</a>
-          <a href="#work" className="hover:text-white transition-colors">Work</a>
-          <a href="#toolkit" className="hover:text-white transition-colors">Toolkit</a>
-          <a href="#building" className="hover:text-white transition-colors">Building</a>
-          <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+        <div
+          className="hidden md:flex gap-8 text-[14px] font-normal text-white/80 pointer-events-auto"
+          style={{ letterSpacing: "-0.06px" }}
+        >
+          <a href="#about" className="hover:text-white transition-colors">
+            About
+          </a>
+          <a href="#work" className="hover:text-white transition-colors">
+            Work
+          </a>
+          <a href="#toolkit" className="hover:text-white transition-colors">
+            Toolkit
+          </a>
+          <a href="#building" className="hover:text-white transition-colors">
+            Building
+          </a>
+          <a href="#contact" className="hover:text-white transition-colors">
+            Contact
+          </a>
         </div>
 
         <a
@@ -107,47 +123,45 @@ export default function Page() {
         </a>
       </motion.nav>
 
-      {/* CONTENT */}
-      <main
+      {/* HERO — full viewport width */}
+      <section
+        className="min-h-screen relative overflow-hidden"
         style={{ position: "relative", zIndex: 10, pointerEvents: "none" }}
-        className="max-w-[1400px] mx-auto"
       >
-        {/* HERO — Full-bleed portrait background */}
-        <section className="min-h-screen relative overflow-hidden">
-          
-          {/* Big background portrait — right-anchored, full height */}
+        {/* Portrait */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ zIndex: 5 }}
+        >
           <div
-            className="absolute inset-0 pointer-events-none"
-            style={{ zIndex: 5 }}
+            className="absolute right-0 top-0"
+            style={{
+              width: "min(60vw, 900px)",
+              height: "100%",
+              maskImage:
+                "linear-gradient(to bottom, black 50%, transparent 100%), linear-gradient(to right, transparent 0%, black 20%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 50%, transparent 100%), linear-gradient(to right, transparent 0%, black 20%)",
+              maskComposite: "intersect",
+              WebkitMaskComposite: "destination-in",
+            }}
           >
-            <div
-              className="absolute h-full"
-              style={{
-                right: "0",
-                top: "0",
-                width: "min(60vw, 900px)",
-                height: "100vh",
-              }}
-            >
-              <FlickerPortrait
-                src="/prapulimage.png"
-                alt="Prapul Upendrakumar"
-                priority
-              />
-            </div>
-
-            {/* Subtle gradient to help text readability on left */}
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 40%, rgba(0,0,0,0.2) 70%, transparent 100%)",
-              }}
+            <Image
+              src="/prapulimage.png"
+              alt="Prapul Upendrakumar"
+              fill
+              priority
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 100vw, 900px"
             />
           </div>
+        </div>
 
-          {/* Hero content — floats on top */}
-          <div className="relative min-h-screen flex flex-col justify-end px-6 sm:px-10 pb-24 pt-40" style={{ zIndex: 10 }}>
+        {/* Hero text content */}
+        <div
+          className="relative min-h-screen flex flex-col justify-end px-6 sm:px-10 pb-24 pt-40 max-w-[1400px] mx-auto"
+          style={{ zIndex: 10 }}
+        >
             <motion.div
               initial="hidden"
               animate="visible"
@@ -171,7 +185,8 @@ export default function Page() {
                 variants={fadeUp}
                 className="text-white"
                 style={{
-                  fontFamily: "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
+                  fontFamily:
+                    "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
                   fontWeight: 400,
                   fontSize: "clamp(52px, 12vw, 140px)",
                   lineHeight: 0.9,
@@ -186,7 +201,8 @@ export default function Page() {
                 variants={fadeUp}
                 className="text-white/80 mb-12"
                 style={{
-                  fontFamily: "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
+                  fontFamily:
+                    "'Helvetica Neue', ui-sans-serif, system-ui, sans-serif",
                   fontWeight: 400,
                   fontSize: "clamp(28px, 5vw, 56px)",
                   lineHeight: 1,
@@ -207,8 +223,8 @@ export default function Page() {
                 }}
               >
                 SOC analyst focused on detection engineering, threat hunting,
-                and cloud security — with hands-on exposure to AI-assisted
-                log analysis and SIEM investigations.
+                and cloud security — with hands-on exposure to AI-assisted log
+                analysis and SIEM investigations.
               </motion.p>
 
               <motion.div
@@ -220,16 +236,29 @@ export default function Page() {
                   letterSpacing: "-0.06px",
                 }}
               >
-                <a href="#about" className="hover:text-white transition-colors">
+                <a
+                  href="#about"
+                  className="hover:text-white transition-colors"
+                >
                   Scroll ↓
                 </a>
               </motion.div>
             </motion.div>
-          </div>
-        </section>
+        </div>
+      </section>
 
+      {/* CONTENT */}
+      <main
+        style={{ position: "relative", zIndex: 10, pointerEvents: "none" }}
+        className="max-w-[1400px] mx-auto"
+      >
         {/* ABOUT */}
-        <EditorialSection id="about" label="ABOUT" number="(01)" sublabel="Introduction">
+        <EditorialSection
+          id="about"
+          label="ABOUT"
+          number="(01)"
+          sublabel="Introduction"
+        >
           <motion.h3
             variants={fadeUp}
             className="text-white mb-10 max-w-[900px]"
@@ -241,8 +270,8 @@ export default function Page() {
               letterSpacing: "clamp(-0.4px, -0.012em, -0.62px)",
             }}
           >
-            Focused on Security Operations, with hands-on exposure to
-            cloud environments and modern security tools.
+            Focused on Security Operations, with hands-on exposure to cloud
+            environments and modern security tools.
           </motion.h3>
           <motion.p
             variants={fadeUp}
@@ -260,7 +289,12 @@ export default function Page() {
         </EditorialSection>
 
         {/* SECURITY WORK */}
-        <EditorialSection id="work" label="EXPLORE" number="(02)" sublabel="Selected Work">
+        <EditorialSection
+          id="work"
+          label="EXPLORE"
+          number="(02)"
+          sublabel="Selected Work"
+        >
           <motion.h3
             variants={fadeUp}
             className="text-white mb-16 max-w-[900px]"
@@ -321,7 +355,12 @@ export default function Page() {
         </EditorialSection>
 
         {/* TOOLKIT */}
-        <EditorialSection id="toolkit" label="TOOLKIT" number="(03)" sublabel="Skills & Stack">
+        <EditorialSection
+          id="toolkit"
+          label="TOOLKIT"
+          number="(03)"
+          sublabel="Skills & Stack"
+        >
           <motion.h3
             variants={fadeUp}
             className="text-white mb-16 max-w-[900px]"
@@ -343,17 +382,40 @@ export default function Page() {
             viewport={{ once: true, amount: 0.2 }}
             className="space-y-10 max-w-[1100px]"
           >
-            <SkillLine title="Security & Detection" items="IDS/IPS · NIST IR · Cyber Kill Chain · MITRE ATT&CK · Threat Hunting" />
-            <SkillLine title="Cloud Security" items="AWS · CloudTrail · Athena · EventBridge · Lambda · IAM · Sigma" />
-            <SkillLine title="SIEM & Query" items="Splunk · ELK · Wazuh · KQL · Kusto · Wireshark · Scapy" />
-            <SkillLine title="AI & Analysis" items="LLM Prompt Engineering · Log Analysis · Scikit-learn · Model Evaluation" />
-            <SkillLine title="Programming" items="Python · Flask · SQL · Trino · Git · Linux" />
-            <SkillLine title="Web Development" items="React · Next.js · Tailwind · Framer Motion · Vercel" />
+            <SkillLine
+              title="Security & Detection"
+              items="IDS/IPS · NIST IR · Cyber Kill Chain · MITRE ATT&CK · Threat Hunting"
+            />
+            <SkillLine
+              title="Cloud Security"
+              items="AWS · CloudTrail · Athena · EventBridge · Lambda · IAM · Sigma"
+            />
+            <SkillLine
+              title="SIEM & Query"
+              items="Splunk · ELK · Wazuh · KQL · Kusto · Wireshark · Scapy"
+            />
+            <SkillLine
+              title="AI & Analysis"
+              items="LLM Prompt Engineering · Log Analysis · Scikit-learn · Model Evaluation"
+            />
+            <SkillLine
+              title="Programming"
+              items="Python · Flask · SQL · Trino · Git · Linux"
+            />
+            <SkillLine
+              title="Web Development"
+              items="React · Next.js · Tailwind · Framer Motion · Vercel"
+            />
           </motion.div>
         </EditorialSection>
 
         {/* ALSO BUILDING */}
-        <EditorialSection id="building" label="ALSO BUILDING" number="(04)" sublabel="Web Experiences">
+        <EditorialSection
+          id="building"
+          label="ALSO BUILDING"
+          number="(04)"
+          sublabel="Web Experiences"
+        >
           <motion.h3
             variants={fadeUp}
             className="text-white mb-10 max-w-[900px]"
@@ -413,7 +475,12 @@ export default function Page() {
         </EditorialSection>
 
         {/* CONTACT */}
-        <EditorialSection id="contact" label="CONTACT" number="(05)" sublabel="Get in Touch">
+        <EditorialSection
+          id="contact"
+          label="CONTACT"
+          number="(05)"
+          sublabel="Get in Touch"
+        >
           <motion.h3
             variants={fadeUp}
             className="text-white mb-16 max-w-[900px]"
@@ -435,10 +502,26 @@ export default function Page() {
             viewport={{ once: true, amount: 0.2 }}
             className="grid sm:grid-cols-2 gap-8 sm:gap-12 pointer-events-auto max-w-[900px]"
           >
-            <ContactLine label="Email" value="prapul.2004@gmail.com" href="mailto:prapul.2004@gmail.com" />
-            <ContactLine label="WhatsApp" value="Chat directly" href={WHATSAPP_LINK} />
-            <ContactLine label="LinkedIn" value="linkedin.com/in/prapul123" href="https://linkedin.com/in/prapul123" />
-            <ContactLine label="GitHub" value="github.com/Prapul1" href="https://github.com/Prapul1" />
+            <ContactLine
+              label="Email"
+              value="prapul.2004@gmail.com"
+              href="mailto:prapul.2004@gmail.com"
+            />
+            <ContactLine
+              label="WhatsApp"
+              value="Chat directly"
+              href={WHATSAPP_LINK}
+            />
+            <ContactLine
+              label="LinkedIn"
+              value="linkedin.com/in/prapul123"
+              href="https://linkedin.com/in/prapul123"
+            />
+            <ContactLine
+              label="GitHub"
+              value="github.com/Prapul1"
+              href="https://github.com/Prapul1"
+            />
           </motion.div>
         </EditorialSection>
 
@@ -632,7 +715,10 @@ function WebProjectRow({ index, title, subtitle, stack, link, status }) {
         >
           {title}
         </h4>
-        <p className="text-white/60 text-[14px] sm:text-[15px]" style={{ letterSpacing: "-0.06px" }}>
+        <p
+          className="text-white/60 text-[14px] sm:text-[15px]"
+          style={{ letterSpacing: "-0.06px" }}
+        >
           {subtitle}
         </p>
       </div>
@@ -646,7 +732,10 @@ function WebProjectRow({ index, title, subtitle, stack, link, status }) {
       </div>
       <div className="col-span-12 sm:col-span-1 flex justify-start sm:justify-end items-start">
         {status ? (
-          <span className="text-white/40 text-[13px] italic" style={{ fontFamily: "'Times', serif" }}>
+          <span
+            className="text-white/40 text-[13px] italic"
+            style={{ fontFamily: "'Times', serif" }}
+          >
             {status}
           </span>
         ) : (
@@ -664,7 +753,10 @@ function WebProjectRow({ index, title, subtitle, stack, link, status }) {
 
 function SkillLine({ title, items }) {
   return (
-    <motion.div variants={fadeUp} className="grid grid-cols-12 gap-6 pb-6 border-b border-white/10">
+    <motion.div
+      variants={fadeUp}
+      className="grid grid-cols-12 gap-6 pb-6 border-b border-white/10"
+    >
       <div className="col-span-12 sm:col-span-3">
         <h4
           className="text-white"
@@ -717,7 +809,9 @@ function ContactLine({ label, value, href }) {
         }}
       >
         {value}
-        <span className="text-white/40 group-hover:translate-x-1 transition-transform">↗</span>
+        <span className="text-white/40 group-hover:translate-x-1 transition-transform">
+          ↗
+        </span>
       </p>
     </motion.a>
   );
